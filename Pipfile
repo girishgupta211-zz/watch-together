@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask-restplus = "*"
+requests = "*"
+python-dateutil = "*"
+flask-cors = "*"
+python-dotenv = "*"
+redis = "*"
+flask-log-request-id = "*"
+apscheduler = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+
+[dev-packages]
+ipdb = "*"
+
+[requires]
+python_version = "2.7"
