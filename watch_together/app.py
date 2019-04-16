@@ -4,13 +4,11 @@ Flask App declaration
 
 from flask import Flask, jsonify
 from flask_cors import CORS
-
-from werkzeug.contrib.fixers import ProxyFix
-
 from watch_together import settings
 from watch_together.apis import blueprint as api_blueprint
 from watch_together.config import Config
 from watch_together.models import db
+from werkzeug.contrib.fixers import ProxyFix
 
 
 def register_blueprints(app):
@@ -27,9 +25,20 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
+    postgres = {
+        'user': settings.POSTGRES_USER,
+        'pw': settings.POSTGRES_PASSWORD,
+        'db': settings.POSTGRES_DB,
+        'host': settings.POSTGRES_HOST,
+        'port': settings.POSTGRES_PORT,
+    }
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = (
         settings.POSTGRES_URI
+    )
+    app.config['SQLALCHEMY_DATABASE_URI'] = (
+            'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % postgres
     )
     app.config.SWAGGER_UI_DOC_EXPANSION = 'list'
     app.config.SWAGGER_UI_OPERATION_ID = True
