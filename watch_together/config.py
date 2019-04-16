@@ -6,8 +6,7 @@ import os
 
 from dotenv import load_dotenv
 
-
-WATCH_TOGETHER_ENV_PATH = os.getenv('WATCH_TOGETHER_ENV_PATH')
+WATCH_TOGETHER_ENV_PATH = os.getenv('WATCH_TOGETHER_ENV_PATH', '.')
 
 if WATCH_TOGETHER_ENV_PATH:
     load_dotenv(dotenv_path=WATCH_TOGETHER_ENV_PATH + '/.env')

@@ -59,7 +59,7 @@ def create_app():
 app = create_app()
 
 
-@app.route('/watch-together/health', methods=['GET'])
+@app.route('/watch-together/health/', methods=['GET'])
 def health_check():
     """
     health check
