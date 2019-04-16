@@ -11,6 +11,7 @@ from watch_together.utils.custom_exceptions import (
 from watch_together.utils.payload_processing import (
     parse_payload, check_required_keys
 )
+from watch_together.utils.group_utils import create_group
 from watch_together.utils.response import response
 
 
@@ -36,9 +37,11 @@ class CreateGroup(Resource):
             # Parse Payload
             payload = parse_payload(request)
             # Check required params
-            check_required_keys(payload, [])
+            check_required_keys(payload,
+                                ["group_name", "video_url", "users_email"]
+                                )
             # create group here
-
+            create_group(payload)
         except (InvalidPayloadError, PayloadParseError,
                 MissingKeysError) as err:
             current_app.logger.error(
