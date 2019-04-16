@@ -48,7 +48,8 @@ class Group(BaseModel, db.Model):
     content_id = db.Column(db.VARCHAR(128))
     tenant_id = db.Column(db.VARCHAR(8))
 
-    def __init__(self, name, content_id, tenant_id):
+    def __init__(self, id, name, content_id, tenant_id):
+        self.id = id
         self.name = name
         self.content_id = content_id
         self.tenant_id = tenant_id
@@ -66,8 +67,9 @@ class User(BaseModel, db.Model):
     current_run_time = db.Column(db.FLOAT)
     is_paused = db.Column(db.BOOLEAN)
 
-    def __init__(self, group_id, email_id,
+    def __init__(self, id, group_id, email_id,
                  current_run_time, is_paused):
+        self.id = id
         self.group_id = group_id
         self.email_id = email_id
         self.current_run_time = current_run_time
