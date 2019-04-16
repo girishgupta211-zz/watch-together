@@ -1,6 +1,7 @@
 """
 v1 version apis
 """
+import socket
 
 from flask import current_app, request
 from flask_restplus import Resource
@@ -37,11 +38,15 @@ class CreateGroup(Resource):
             # Parse Payload
             payload = parse_payload(request)
             # Check required params
-            check_required_keys(payload,
-                                ["group_name", "video_url", "users_email", ]
-                                )
+            check_required_keys(
+                payload,
+                ["group_name", "video_url", "users_email", 'start_epoch']
+            )
             # create group here
-            create_group(payload)
+            group_id = create_group(payload)
+            data = {
+                'link': socket.gethostname() + '/' + 'join/' + group_id
+            }
         except (InvalidPayloadError, PayloadParseError,
                 MissingKeysError) as err:
             current_app.logger.error(
@@ -49,7 +54,7 @@ class CreateGroup(Resource):
             )
             return response(error_dict=err.to_dict())
 
-        return response(data=payload)
+        return response(data=data)
 
 
 @ns.route('/join/<str:group_id>')

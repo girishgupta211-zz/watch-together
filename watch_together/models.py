@@ -47,12 +47,14 @@ class Group(BaseModel, db.Model):
     name = db.Column(db.VARCHAR(512))
     content_id = db.Column(db.VARCHAR(128))
     tenant_id = db.Column(db.VARCHAR(8))
+    start_epoch = db.Column( db.BIGINT)
 
-    def __init__(self, id, name, content_id, tenant_id):
+    def __init__(self, id, name, content_id, tenant_id, start_epoch):
         self.id = id
         self.name = name
         self.content_id = content_id
         self.tenant_id = tenant_id
+        self.start_epoch = start_epoch
 
 
 class User(BaseModel, db.Model):
