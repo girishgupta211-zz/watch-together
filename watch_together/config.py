@@ -31,5 +31,6 @@ class Config(object):
         user=POSTGRES_USER, password=POSTGRES_PASSWORD, host=POSTGRES_HOST,
         port=POSTGRES_PORT, db=POSTGRES_DB
     )
+    CMS_TOKEN = os.getenv('CMS_TOKEN')
     LOGGING_DIR = os.getenv('LOGGING_DIR', '/tmp/')
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
