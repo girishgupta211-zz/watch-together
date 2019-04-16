@@ -17,7 +17,7 @@ def register_blueprints(app):
     """
     Register blueprint
     """
-    app.register_blueprint(api_blueprint, url_prefix='/watch-together/api')
+    app.register_blueprint(api_blueprint, url_prefix='/watch-together/api/v1')
 
 
 def create_app():
@@ -50,7 +50,7 @@ def create_app():
 app = create_app()
 
 
-@app.route('/health', methods=['GET'])
+@app.route('/watch-together/health', methods=['GET'])
 def health_check():
     """
     health check
