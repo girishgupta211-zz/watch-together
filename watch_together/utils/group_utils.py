@@ -1,6 +1,7 @@
 import uuid
 
 from watch_together.models import db, Group, User
+from watch_together.utils.cms_utils import get_master_manifest
 
 
 def get_content_id_from_video_url(video_url):
@@ -32,3 +33,27 @@ def create_group(payload):
     db.session.commit()
 
     return group_id
+
+
+def get_group_by_id(group_id):
+    """
+
+    :param group_id:
+    :return:
+    """
+    cursor = db.session.query(Group).filter(
+        Group.id == group_id
+    )
+
+    return cursor
+
+
+def get_master_manifest_start_time(group_id):
+    cursor = get_group_by_id(group_id)
+    group = cursor.first()
+    if not group:
+        raise Exception("group not found")
+
+    group = group.json()
+    return get_master_manifest(group['content_id']), group['start_time']
+

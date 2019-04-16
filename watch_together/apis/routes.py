@@ -12,7 +12,7 @@ from watch_together.utils.custom_exceptions import (
 from watch_together.utils.payload_processing import (
     parse_payload, check_required_keys
 )
-from watch_together.utils.group_utils import create_group
+from watch_together.utils.group_utils import create_group, get_master_manifest_start_time
 from watch_together.utils.response import response
 
 
@@ -64,4 +64,8 @@ class CreateGroup(Resource):
     """
     @api.doc(False)
     def get(self, group_id):
-        pass
+        master_manifest, start_time = get_master_manifest_start_time(group_id)
+        return response(data={'playback_url': master_manifest,
+                              'start_time': start_time
+                              }
+                        )
