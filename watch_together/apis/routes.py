@@ -42,7 +42,7 @@ class CreateGroup(Resource):
         except (InvalidPayloadError, PayloadParseError,
                 MissingKeysError) as err:
             current_app.logger.error(
-                'POST: ml channel master data error: %s' % err.to_dict()
+                'POST: create group data error: %s' % err.to_dict()
             )
             return response(error_dict=err.to_dict())
 
